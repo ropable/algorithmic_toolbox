@@ -1,2 +1,3 @@
-# algorithmic_toolbox
-Coursework from Coursera Algorithmic Toolbox course
+# Algorithmic Toolbox
+Coursework from Coursera [Algorithmic
+Toolbox](https://www.coursera.org/learn/algorithmic-toolbox/) course.
