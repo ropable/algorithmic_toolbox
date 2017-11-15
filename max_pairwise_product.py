@@ -1,8 +1,11 @@
-#!/usr/bin/python
+# python3
 n = int(input())
 a = [int(x) for x in input().split()]
 result = 0
-for i in range(0, len(a)):
-    if a[i] * n > result:
-        result = a[i] * n
+
+for i in range(0, n):
+    for j in range(i+1, n):
+        if a[i]*a[j] > result:
+            result = a[i]*a[j]
+
 print(result)
