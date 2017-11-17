@@ -1,4 +1,7 @@
 # python3
+import sys
+
+
 def fib_slow(n):
     '''Dumb (slow) example solution.
     '''
@@ -44,5 +47,5 @@ def fib_matrix(n):
 
 
 if __name__ == '__main__':
-    n = int(raw_input())
+    n = int(sys.stdin.read())
     print(fib_matrix(n))

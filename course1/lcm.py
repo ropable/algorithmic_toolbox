@@ -1,4 +1,7 @@
 # python3
+import sys
+
+
 def lcm_naive(a, b):
     '''Dumb (slow) example solution.
     '''
@@ -17,10 +20,10 @@ def gcd(x, y):
 def lcm(a, b):
     '''Return the product of the two ints, divided by their GCD.
     '''
-    return (a * b) / gcd(a, b)
+    return int((a * b) / gcd(a, b))
 
 
 if __name__ == '__main__':
-    n = raw_input()
+    n = sys.stdin.read()
     x, y = map(int, n.split())
     print(lcm(x, y))

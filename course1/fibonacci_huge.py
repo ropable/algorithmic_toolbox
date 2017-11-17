@@ -1,4 +1,7 @@
 # python3
+import sys
+
+
 def get_fibonacci_huge_naive(n, m):
     '''The slow example solution.
     '''
@@ -29,6 +32,6 @@ def fib_huge(n, m):
     return v2
 
 if __name__ == '__main__':
-    n = raw_input()
+    n = sys.stdin.read()
     n, m = map(int, n.split())
     print(fib_huge(n, m))
