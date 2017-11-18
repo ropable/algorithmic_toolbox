@@ -19,8 +19,10 @@ def gcd(x, y):
 
 def lcm(a, b):
     '''Return the product of the two ints, divided by their GCD.
+    Use floor (not floating point) division.
+    Ref: https://stackoverflow.com/a/183870/14508
     '''
-    return int((a * b) / gcd(a, b))
+    return a * b // gcd(a, b)
 
 
 if __name__ == '__main__':
