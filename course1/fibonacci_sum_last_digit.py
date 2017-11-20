@@ -3,6 +3,8 @@ import sys
 
 
 def fibonacci_sum_naive(n):
+    """Stupid example solution.
+    """
     if n <= 1:
         return n
 
@@ -18,6 +20,8 @@ def fibonacci_sum_naive(n):
 
 
 def fib_matrix(n):
+    """Efficient algorithm to return F(n) via matrix multiplication.
+    """
     if (n <= 1):
         return n
     v1, v2, v3 = 1, 1, 0
@@ -29,20 +33,18 @@ def fib_matrix(n):
     return v2
 
 
-def fib_sum(n):
-    """Returns the sum of Fibonacci number to n.
+def fib_sum_last_digit(n):
+    """Returns the sum of Fibonacci numbers to n.
+    Sn = Fn+2 - 1
+    Ref: https://www.quora.com/What-is-the-sum-of-n-terms-of-a-Fibonacci-series
     """
     if n <= 1:
         return n
-
-    total = 1
-    for i in range(2, n + 1):
-        total += fib_matrix(i)
-
-    return total
+    n = (n + 2) % 60  # Use the characteristic of the last digit cycling every 60 numbers.
+    return fib_matrix(n) - 1
 
 
 if __name__ == '__main__':
     input = sys.stdin.read()
     n = int(input)
-    print(str(fib_sum(n))[-1:])
+    print(str(fib_sum_last_digit(n))[-1:])
