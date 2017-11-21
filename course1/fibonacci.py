@@ -46,6 +46,30 @@ def fib_matrix(n):
     return v2
 
 
+def fib_fast_double(n):
+    '''Use fast doubling method.
+    Ref: https://www.nayuki.io/page/fast-fibonacci-algorithms
+    '''
+    if n == 0:
+        return (0, 1)
+    else:
+        a, b = fib_fast_double(n // 2)
+        c = a * (b * 2 - a)
+        d = a * a + b * b
+        if n % 2 == 0:
+            return (c, d)
+        else:
+            return (d, c + d)
+
+def fibonacci(n):
+    """Returns F(n)
+    """
+    if n < 0:
+        raise ValueError
+
+    return fib_fast_double(n)[0]
+
+
 if __name__ == '__main__':
     n = int(sys.stdin.read())
-    print(fib_matrix(n))
+    print(fibonacci(n))

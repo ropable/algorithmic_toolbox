@@ -30,19 +30,17 @@ def fib_matrix(n):
 
 
 def fib_sum(n):
-    """Returns the sum of Fibonacci number to n.
+    """Returns the sum of Fibonacci numbers to n.
     """
     if n <= 1:
         return n
 
-    total = 1
-    for i in range(2, n + 1):
-        total += fib_matrix(i)
-
-    return total
+    return fib_matrix(n + 2) - 1
 
 
 if __name__ == '__main__':
-    input = sys.stdin.read()
-    n = int(input)
-    print(str(fib_sum(n))[-1:])
+    n = int(sys.stdin.read())
+    # See fibonacci_last_digit.py
+    m = (n + 2) % 60
+    fm = (fib_matrix(m)) % 10
+    print(fm - 1)
