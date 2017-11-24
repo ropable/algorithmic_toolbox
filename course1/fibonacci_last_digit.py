@@ -1,4 +1,7 @@
 # python3
+import sys
+
+
 def fib_matrix(n):
     if (n <= 1):
         return n
@@ -11,6 +14,18 @@ def fib_matrix(n):
     return v2
 
 
+"""
+But wait - the last digit of every number in the Fibonacci sequence repeats every
+60th number! Irrespective of how large n is, its last digit is going to have appeared
+somewhere within the sequence.
+Ref: https://www.goldennumber.net/fibonacci-60-repeating-pattern/
+
+* Sum of nth Fibonacci series = F(n+2) -1
+* Then pisano period of modulo 10 = let n+2 mod (60) = m then find F(m) mod(10)-1
+"""
+
 if __name__ == '__main__':
-    n = int(input())
-    print(str(fib_matrix(n))[-1:])
+    n = int(sys.stdin.read())
+    m = (n + 2) % 60
+    fm = (fib_matrix(m)) % 10
+    print(fm - 1)

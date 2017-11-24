@@ -40,11 +40,11 @@ def fib_sum_last_digit(n):
     """
     if n <= 1:
         return n
+
     n = (n + 2) % 60  # Use the characteristic of the last digit cycling every 60 numbers.
     return fib_matrix(n) - 1
 
 
 if __name__ == '__main__':
-    input = sys.stdin.read()
-    n = int(input)
+    n = int(sys.stdin.read())
     print(str(fib_sum_last_digit(n))[-1:])
