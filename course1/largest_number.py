@@ -17,17 +17,21 @@ def stress_test():
 def isGreater(m, n):
     """Implement the solution straight from the problem document.
     """
-    # Only consider the same (smallest) number of digits
+    if not n:  # n might be None.
+        return True
+    # Consider both combinations: mn and nm.
     m, n = str(m), str(n)
-    i = min([len(m), len(n)])
-    return int(m[:i]) > int(n[:i])
+    m_first = int(m + n)
+    n_first = int(n + m)
+    if m_first > n_first:
+        return True
+    return False
 
 
 def largest_number(a):
-    a.sort()
     answer = []
     while a:
-        maxDigit = 0
+        maxDigit = None
         for digit in a:
             if isGreater(digit, maxDigit):
                 maxDigit = digit
