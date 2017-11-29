@@ -2,14 +2,25 @@
 import sys
 
 
-def binary_search(a, x):
-    """Naive/slow solution.
-    """
-    #left, right = 0, len(a)
-    try:
-        return a.index(x)
-    except ValueError:
+def binary_search(a, x, left_idx=None, right_idx=None):
+    # Short-circuit: target is < smallest number or > largest number.
+    if x < a[0] or x > a[-1]:
         return -1
+
+    if not left_idx:
+        left_idx = 0
+    if not right_idx:
+        right_idx = len(a)
+    mid_idx = (left_idx + right_idx) // 2
+
+    if left_idx == mid_idx and x != a[mid_idx]:
+        return -1
+    if x == a[mid_idx]:
+        return mid_idx  # This is the last remaining index.
+    elif x < a[mid_idx]:
+        return binary_search(a, x, left_idx, mid_idx)
+    else:
+        return binary_search(a, x, mid_idx+1, right_idx)
 
 
 def linear_search(a, x):
@@ -26,5 +37,4 @@ if __name__ == '__main__':
     m = data[n + 1]
     a = data[1: n + 1]  # The sorted array.
     for x in data[n + 2:]:  # The array of keys to search for.
-        # replace with the call to binary_search when implemented
         print(binary_search(a, x), end=' ')
