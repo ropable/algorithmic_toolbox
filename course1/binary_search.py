@@ -3,23 +3,31 @@ import sys
 
 
 def binary_search(a, x, left_idx=None, right_idx=None):
-    # Short-circuit: target is < smallest number or > largest number.
+    # Short-circuit: target is < smallest  or > largest number in array.
     if x < a[0] or x > a[-1]:
         return -1
 
+    # Initial call: assume we need the whole array.
     if not left_idx:
         left_idx = 0
     if not right_idx:
         right_idx = len(a)
     mid_idx = (left_idx + right_idx) // 2
 
+    # Case 0: [] or [i] != x
     if left_idx == mid_idx and x != a[mid_idx]:
         return -1
-    if x == a[mid_idx]:
-        return mid_idx  # This is the last remaining index.
+    # Case 1: [.., i, ..] = x
+    elif x == a[mid_idx]:
+        # Match: return the index of i.
+        return mid_idx
+    # Case 2: [.., i, ..] < x
     elif x < a[mid_idx]:
+        # Recursively call the function with the array slice left of i.
         return binary_search(a, x, left_idx, mid_idx)
+    # Case 3: [.., i, ..] > x
     else:
+        # Recursively call the function with the array slice right of i.
         return binary_search(a, x, mid_idx+1, right_idx)
 
 
