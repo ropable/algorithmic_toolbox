@@ -1,6 +1,5 @@
 # Uses python3
 import sys
-
 """
 The algorithm begins by splitting the array in half repeatedly and calling itself
 on each half.
@@ -25,43 +24,48 @@ to both of the candidates for majority element. If either is a majority element
 in the combined array, then return it. Otherwise, return “no majority.”
 The top level simply returns either a majority element or that no majority element
 exists in the same way.
+
+Ref: http://www.chegg.com/homework-help/array-1-n-said-majority-element-half-entries-given-array-ta-chapter-2-problem-23-solution-9780077388492-exc
 """
-def get_majority_element(a, left, right):
-    if left == right:
-        return -1
-    if left + 1 == right:
-        return a[left]
-    # Your code here
-    return -1
 
+def majority(a):
+    # Initially check for a single-element array, and return that element
+    # (always majority).
+    if len(a) == 1:
+        return a[0]
+    # Next, find the middle of the array.
+    mid = len(a) // 2
+    # Recursively call this function on the left and right halves of the array.
+    l_elem = majority(a[:mid])
+    r_elem = majority(a[mid:])
+    # These two calls will be one of three cases:
+    # 1. Both return -1 (neither majority)
+    # 2. Both return a value as the majority
+    # 3. One returns a value as the majority, one does not
 
-def majority(data, tiebreaker=None):
-    '''Return the majority element of sequence data, or
-    tiebreaker - if exactly half of the elements in data are tiebreaker , or
-    -1.
-    '''
-    n = len(data)
-    if n == 0:
-        return tiebreaker
-    pairs = []
-    if n % 2 == 1:
-        tiebreaker = data[-1]
-    for i in range(0, n-1, 2):
-        if data[i] == data[i+1]:
-            pairs.append(data[i])
-    major = majority(pairs, tiebreaker)
-    if major is None:
-        return -1
-    major_count = data.count(major)
-    if 2 * major_count > n or (2 * major_count == n and major == tiebreaker ):
-        return major
+    # If both halves return the same value, pass that up as the majority value.
+    if l_elem == r_elem:
+        return l_elem
+    # Check the count of the majority elements (if returned).
+    # If either makes up more than half the passed-in array, pass that element
+    # up again.
+    if l_elem != -1:
+        l_count = a.count(l_elem)
+        if l_count > mid:
+            return l_elem
+    if r_elem != -1:
+        r_count = a.count(r_elem)
+        if r_count > mid:
+            return r_elem
+
+    # If all else fails, return -1 (no majority element).
     return -1
 
 
 if __name__ == '__main__':
     input = sys.stdin.read()
     n, *a = list(map(int, input.split()))
-    if get_majority_element(a, 0, n) != -1:
+    if majority(a) != -1:
         print(1)
     else:
         print(0)
