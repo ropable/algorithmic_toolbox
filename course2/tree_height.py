@@ -1,5 +1,6 @@
 # python3
 import sys
+from collections import deque
 
 
 class Node(object):
@@ -71,6 +72,7 @@ def allocate_nodes(parents):
 
 def calculate_tree_height(tree):
     """Iterate through a tree and calculate the height.
+    TOO SLOW - this solution is O(n^2) complexity.
     """
     max_height = 0
     for i in tree.values():
@@ -82,8 +84,31 @@ def calculate_tree_height(tree):
     return max_height
 
 
+def compute_height(tree, root):
+    """Undertake a breadth-first search through the tree, starting at the root.
+    This solution should be O(n) complexity.
+    """
+    queue = deque([root])  # Begin the queue with the root node.
+    height = 0
+
+    while True:
+        if len(queue) == 0:  # Nothing is left in the queue; return the current height.
+            return height
+        queue_n = len(queue)
+        height += 1  # Increment the height.
+        # For the CURRENT length of the queue, pop nodes from the front and append
+        # children on those nodes to the end.
+        # After queue_n times, our queue will now consist of all nodes of ``height``.
+        # Then we repeat the process.
+        while queue_n > 0:
+            node = queue.popleft()
+            for v in tree[node.name].children:
+                queue.append(v)
+            queue_n -= 1
+
+
 if __name__ == '__main__':
     n = int(sys.stdin.readline())
     parents = list(map(int, sys.stdin.readline().split()))
     tree, root_node = allocate_nodes(parents)
-    print(calculate_tree_height(tree))
+    print(compute_height(tree, root_node))
